@@ -77,7 +77,7 @@ public class Controller {
                 outputView.printGameSaved(gameId);
                 return;
             }
-            gameRepository.save(gameId, game, move.get().from(), move.get().to());
+            gameRepository.movePiece(gameId, game, move.get().from(), move.get().to());
         }
     }
 

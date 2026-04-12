@@ -63,7 +63,7 @@ public class GameRepository {
                 ));
     }
 
-    public void save(long gameId, Game game, Position from, Position to) {
+    public void movePiece(long gameId, Game game, Position from, Position to) {
         try (Connection connection = dbConnection.getConnection()) {
             connection.setAutoCommit(false);
             try {
