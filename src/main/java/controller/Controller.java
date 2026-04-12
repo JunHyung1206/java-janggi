@@ -33,6 +33,7 @@ public class Controller {
     public void run() {
         long gameId = loadGame();
         Game game = gameRepository.findById(gameId);
+        outputView.printGameLoaded(gameId);
         play(game, gameId);
     }
 
@@ -68,7 +69,7 @@ public class Controller {
         while (true) {
             outputView.printGame(toGameDto(game));
             if (game.isGameEnd()) {
-                outputView.printGameResult(game.getWinnerTeam());
+                outputView.printGameResult(game.getWinnerTeam().name());
                 return;
             }
             Optional<Move> move = executeMove(game);
@@ -109,8 +110,8 @@ public class Controller {
         return new PieceDto(
                 position.x(),
                 position.y(),
-                piece.getPieceType(),
-                piece.getTeam()
+                piece.getPieceType().name(),
+                piece.getTeam().name()
         );
     }
 
@@ -122,7 +123,7 @@ public class Controller {
 
     private GameDto toGameDto(Game game) {
         return new GameDto(
-                game.getTurn(),
+                game.getTurn().name(),
                 game.getCurrentScore(Team.CHO),
                 game.getCurrentScore(Team.HAN),
                 toPieceDtos(game)
