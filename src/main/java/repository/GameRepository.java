@@ -14,7 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class GameRepository {
     private final DBConnection dbConnection;
@@ -44,23 +43,25 @@ public class GameRepository {
         }
     }
 
-    private List<PieceRow> toPieceRows(Map<Position, Piece> pieces) {
-        return pieces.entrySet().stream()
-                .map(e -> new PieceRow(
-                        e.getKey().x(),
-                        e.getKey().y(),
-                        e.getValue().getPieceType().name(),
-                        e.getValue().getTeam().name()
+    private List<PieceRow> toPieceRows(List<Piece> pieces) {
+        return pieces.stream()
+                .map(p -> new PieceRow(
+                        p.getPosition().x(),
+                        p.getPosition().y(),
+                        p.getPieceType().name(),
+                        p.getTeam().name()
                 ))
                 .toList();
     }
 
-    private Map<Position, Piece> toPieces(List<PieceRow> rows) {
+    private List<Piece> toPieces(List<PieceRow> rows) {
         return rows.stream()
-                .collect(Collectors.toMap(
-                        r -> new Position(r.x(), r.y()),
-                        r -> BoardFactory.createPiece(PieceType.valueOf(r.pieceType()), Team.valueOf(r.team()))
-                ));
+                .map(r -> BoardFactory.createPiece(
+                        PieceType.valueOf(r.pieceType()),
+                        Team.valueOf(r.team()),
+                        new Position(r.x(), r.y())
+                ))
+                .toList();
     }
 
     public void movePiece(long gameId, Game game, Position from, Position to) {
@@ -92,7 +93,7 @@ public class GameRepository {
         try (Connection connection = dbConnection.getConnection()) {
             GameRow gameRow = gameDao.findById(connection, gameId);
             Team turn = Team.valueOf(gameRow.turn());
-            Map<Position, Piece> pieces = toPieces(pieceDao.findByGameId(connection, gameId));
+            List<Piece> pieces = toPieces(pieceDao.findByGameId(connection, gameId));
             return new Game(new Board(pieces), turn);
         } catch (SQLException e) {
             throw new RuntimeException(e);

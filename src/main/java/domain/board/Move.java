@@ -1,6 +1,4 @@
-package controller;
-
-import domain.board.Position;
+package domain.board;
 
 public record Move(Position from, Position to) {
 }

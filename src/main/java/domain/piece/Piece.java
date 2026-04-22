@@ -1,9 +1,8 @@
 package domain.piece;
 
 import domain.Offset;
-import domain.board.Palace;
-import exception.ErrorMessage;
 import domain.board.Position;
+import exception.ErrorMessage;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,15 +10,17 @@ import java.util.Optional;
 public abstract class Piece {
     private final PieceType pieceType;
     private final Team team;
+    private final Position position;
 
-    public Piece(PieceType pieceType, Team team) {
+    public Piece(PieceType pieceType, Team team, Position position) {
         this.pieceType = pieceType;
         this.team = team;
+        this.position = position;
     }
 
-    public final List<Offset> getPathOffset(Position from, Position to, Optional<Palace> palace) {
-        validateMoveRule(from, to, palace);
-        return generatePaths(from, to, palace);
+    public final List<Offset> getPathOffset(Position to) {
+        validateMoveRule(to);
+        return generatePaths(to);
     }
 
     public void validateMove(List<Piece> blockedPieces) {
@@ -31,11 +32,17 @@ public abstract class Piece {
     public void validateTarget(Optional<Piece> target) {
     }
 
-    protected abstract void validateMoveRule(Position from, Position to, Optional<Palace> palace);
+    protected abstract void validateMoveRule(Position to);
 
-    protected abstract List<Offset> generatePaths(Position from, Position to, Optional<Palace> palace);
+    protected abstract List<Offset> generatePaths(Position to);
 
     protected abstract boolean isValidMove(Offset offset);
+
+    public abstract Piece move(Position newPosition);
+
+    public Position getPosition() {
+        return position;
+    }
 
     public boolean isSameTeam(Team team) {
         return this.team == team;

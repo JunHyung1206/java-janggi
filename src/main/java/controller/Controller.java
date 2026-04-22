@@ -5,7 +5,8 @@ import domain.board.Board;
 import domain.board.BoardFactory;
 import domain.board.InitializeSetting;
 import domain.board.Position;
-import domain.piece.Piece;
+
+import domain.board.Move;
 import domain.piece.Team;
 import dto.GameDto;
 import dto.PieceDto;
@@ -106,18 +107,14 @@ public class Controller {
         }
     }
 
-    private PieceDto toPieceDto(Position position, Piece piece) {
-        return new PieceDto(
-                position.x(),
-                position.y(),
-                piece.getPieceType().name(),
-                piece.getTeam().name()
-        );
-    }
-
     private List<PieceDto> toPieceDtos(Game game) {
-        return game.getPieces().entrySet().stream()
-                .map(e -> toPieceDto(e.getKey(), e.getValue()))
+        return game.getPieces().stream()
+                .map(p -> new PieceDto(
+                        p.getPosition().x(),
+                        p.getPosition().y(),
+                        p.getPieceType().name(),
+                        p.getTeam().name()
+                ))
                 .toList();
     }
 

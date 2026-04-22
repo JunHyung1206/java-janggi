@@ -1,58 +1,42 @@
 package domain.piece;
 
 import domain.Offset;
-import domain.board.Palace;
-import exception.ErrorMessage;
 import domain.board.Position;
+import exception.ErrorMessage;
 
 import java.util.List;
-import java.util.Optional;
 
-
-public abstract class SingleStepPiece extends Piece {
-    public SingleStepPiece(PieceType pieceType, Team team) {
-        super(pieceType, team);
+public abstract class SingleStepPiece extends PalaceMovePiece {
+    public SingleStepPiece(PieceType pieceType, Team team, Position position) {
+        super(pieceType, team, position);
     }
 
     @Override
-    protected List<Offset> generatePaths(Position from, Position to, Optional<Palace> palace) {
+    protected List<Offset> generatePaths(Position to) {
         return List.of();
     }
 
     @Override
-    protected void validateMoveRule(Position from, Position to, Optional<Palace> palace) {
+    protected void validateMoveRule(Position to) {
+        Position from = getPosition();
         Offset offset = Offset.of(from, to);
         if (!isValidMove(offset)) {
             throw new IllegalStateException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
         }
         if (offset.isDiagonalMoving()) {
-            validateDiagonalMoveInPalace(from, to, palace);
+            requireBothInSamePalace(from, to);
+            if (!isValidDiagonalPath(from, to)) {
+                throw new IllegalStateException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
+            }
+            return;
         }
         if (mustStayInPalace()) {
-            requireInPalace(from, to, palace);
+            requireBothInSamePalace(from, to);
         }
     }
 
     protected boolean mustStayInPalace() {
         return false;
-    }
-
-    private void validateDiagonalMoveInPalace(Position from, Position to, Optional<Palace> palace) {
-        if (palace.isEmpty()) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
-        }
-        Palace currentPalace = palace.get();
-        currentPalace.requireBothInPalace(from, to);
-        if (!currentPalace.isValidDiagonalPath(from, to)) {
-            throw new IllegalStateException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
-        }
-    }
-
-    private void requireInPalace(Position from, Position to, Optional<Palace> palace) {
-        if (palace.isEmpty()) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
-        }
-        palace.get().requireBothInPalace(from, to);
     }
 
     @Override

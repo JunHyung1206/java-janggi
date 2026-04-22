@@ -5,7 +5,7 @@ import domain.board.Position;
 import domain.piece.Piece;
 import domain.piece.Team;
 
-import java.util.Map;
+import java.util.List;
 
 public class Game {
 
@@ -50,7 +50,7 @@ public class Game {
         return !(board.isAliveGeneral(Team.CHO) && board.isAliveGeneral(Team.HAN));
     }
 
-    public Map<Position, Piece> getPieces() {
+    public List<Piece> getPieces() {
         return board.getPieces();
     }
 

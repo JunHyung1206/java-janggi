@@ -5,7 +5,6 @@ import domain.piece.Chariot;
 import domain.piece.General;
 import domain.piece.Piece;
 import domain.piece.PieceType;
-
 import domain.piece.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -14,8 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -114,7 +112,10 @@ public class BoardTest {
 
         @Test
         void 기물이_잡힌_경우를_반영하여_점수가_잘나오는지_확인한다() {
-            board = new Board(Map.of(new Position(0, 0), new Chariot(Team.HAN), new Position(1, 0), new Cannon(Team.HAN)));
+            board = new Board(List.of(
+                    new Chariot(Team.HAN, new Position(0, 0)),
+                    new Cannon(Team.HAN, new Position(1, 0))
+            ));
 
             double hanScore = board.calculateScore(Team.HAN);
             assertThat(hanScore).isEqualTo(21.5);
@@ -123,10 +124,10 @@ public class BoardTest {
 
     @Test
     void 궁이_살아있는지_확인한다() {
-        board = new Board(Map.of(
-                new Position(0, 0), new Chariot(Team.HAN),
-                new Position(1, 0), new Cannon(Team.HAN),
-                new Position(4, 9), new General(Team.HAN)
+        board = new Board(List.of(
+                new Chariot(Team.HAN, new Position(0, 0)),
+                new Cannon(Team.HAN, new Position(1, 0)),
+                new General(Team.HAN, new Position(4, 9))
         ));
 
         boolean aliveGeneral = board.isAliveGeneral(Team.HAN);
@@ -135,15 +136,13 @@ public class BoardTest {
 
     @Test
     void 궁이_살아있지_않은지_확인한다() {
-        board = new Board(Map.of(
-                new Position(0, 0), new Chariot(Team.HAN),
-                new Position(1, 0), new Cannon(Team.HAN),
-                new Position(4, 9), new General(Team.HAN)
+        board = new Board(List.of(
+                new Chariot(Team.HAN, new Position(0, 0)),
+                new Cannon(Team.HAN, new Position(1, 0)),
+                new General(Team.HAN, new Position(4, 9))
         ));
 
         boolean aliveGeneral = board.isAliveGeneral(Team.CHO);
         assertThat(aliveGeneral).isFalse();
     }
-
-
 }

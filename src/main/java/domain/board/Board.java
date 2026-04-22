@@ -1,35 +1,23 @@
 package domain.board;
 
-import exception.ErrorMessage;
 import domain.Offset;
 import domain.piece.Piece;
 import domain.piece.PieceType;
 import domain.piece.Team;
+import exception.ErrorMessage;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-
 public class Board {
-    private static final Palace CHO_PALACE = new Palace(new Position(4, 1));
-    private static final Palace HAN_PALACE = new Palace(new Position(4, 8));
+    private final List<Piece> pieces;
 
-    private final Map<Position, Piece> pieces;
-    private final List<Palace> palaces = List.of(CHO_PALACE, HAN_PALACE);
-
-    public Board(Map<Position, Piece> pieces) {
+    public Board(List<Piece> pieces) {
         if (pieces == null) {
             throw new IllegalArgumentException("pieces는 null값일 수 없습니다.");
         }
-        this.pieces = new HashMap<>(pieces);
-    }
-
-    private Optional<Palace> findPalace(Position position) {
-        return palaces.stream()
-                .filter(palace -> palace.isInPalace(position))
-                .findFirst();
+        this.pieces = new ArrayList<>(pieces);
     }
 
     public void move(Position from, Position to) {
@@ -39,18 +27,21 @@ public class Board {
         Optional<Piece> targetPiece = getPiece(to);
         validateNotSameTeam(sourcePiece, targetPiece);
 
-        Optional<Palace> palace = findPalace(from);
-        List<Offset> pathOffset = sourcePiece.getPathOffset(from, to, palace);
-        List<Piece> blockedPieces = getBlockedPieces(from, pathOffset);
+        List<Offset> pathOffsets = sourcePiece.getPathOffset(to);
+        List<Piece> blockedPieces = getBlockedPieces(from, pathOffsets);
 
         sourcePiece.validateMove(blockedPieces);
         sourcePiece.validateTarget(targetPiece);
 
-        pieces.put(to, pieces.remove(from));
+        targetPiece.ifPresent(pieces::remove);
+        pieces.remove(sourcePiece);
+        pieces.add(sourcePiece.move(to));
     }
 
     public Optional<Piece> getPiece(Position position) {
-        return Optional.ofNullable(pieces.get(position));
+        return pieces.stream()
+                .filter(p -> p.getPosition().equals(position))
+                .findFirst();
     }
 
     public Piece getRequiredPiece(Position position) {
@@ -79,19 +70,19 @@ public class Board {
     }
 
     public double calculateScore(Team team) {
-        return team.getScore() + pieces.values().stream()
+        return team.getScore() + pieces.stream()
                 .filter(piece -> piece.isSameTeam(team))
                 .mapToInt(Piece::score)
                 .sum();
     }
 
     public boolean isAliveGeneral(Team team) {
-        return pieces.values().stream()
+        return pieces.stream()
                 .filter(piece -> piece.isSameTeam(team))
                 .anyMatch(piece -> piece.isSameType(PieceType.GENERAL));
     }
 
-    public Map<Position, Piece> getPieces() {
-        return Map.copyOf(pieces);
+    public List<Piece> getPieces() {
+        return List.copyOf(pieces);
     }
 }
