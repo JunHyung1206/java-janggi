@@ -1,6 +1,6 @@
 package domain;
 
-import domain.Position;
+import exception.ErrorMessage;
 
 public record Offset(int dx, int dy) {
     public static Offset of(Position source, Position target) {
@@ -34,14 +34,14 @@ public record Offset(int dx, int dy) {
 
     public int calculateDistance() {
         if (!(isStraightMoving() || isDiagonalMoving())) {
-            throw new IllegalStateException("직선 또는 대각선 이동이 아닐 때는 거리를 계산할 수 없습니다.");
+            throw new IllegalStateException(ErrorMessage.CANNOT_CALCULATE_DISTANCE.getMessage());
         }
         return Math.max(absX(), absY());
     }
 
     public Offset normalize() {
         if (!(isStraightMoving() || isDiagonalMoving())) {
-            throw new IllegalStateException("단위 벡터를 계산할 수 없습니다.");
+            throw new IllegalStateException(ErrorMessage.CANNOT_NORMALIZE.getMessage());
         }
         return new Offset(Integer.signum(dx), Integer.signum(dy));
     }

@@ -1,9 +1,9 @@
 package domain;
 
 import domain.board.Board;
-import domain.Position;
 import domain.piece.Piece;
 import domain.piece.Team;
+import exception.ErrorMessage;
 
 import java.util.List;
 
@@ -30,11 +30,10 @@ public class Game {
         this.turn = turn.opposite();
     }
 
-    public void validateMoveAblePiece(Position from) {
+    public void validateMyPiece(Position from) {
         Piece piece = board.getRequiredPiece(from);
-
         if (!piece.isSameTeam(turn)) {
-            throw new IllegalStateException("본인 기물이 아닙니다.");
+            throw new IllegalStateException(ErrorMessage.NOT_MY_PIECE.getMessage());
         }
     }
 
@@ -56,7 +55,7 @@ public class Game {
 
     public Team getWinnerTeam() {
         if (!isGameEnd()) {
-            throw new IllegalStateException("게임이 아직 끝나지 않았습니다");
+            throw new IllegalStateException(ErrorMessage.GAME_NOT_ENDED.getMessage());
         }
         if (board.isAliveGeneral(Team.CHO)) {
             return Team.CHO;

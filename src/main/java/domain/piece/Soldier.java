@@ -8,12 +8,15 @@ import exception.ErrorMessage;
 import java.util.Map;
 
 public final class Soldier extends SingleStepPiece {
-    private static final Map<Team, Direction> backwardDirections = Map.of(Team.CHO, Direction.DOWN, Team.HAN, Direction.UP);
+    private static final Map<Team, Direction> BACKWARD_DIRECTIONS = Map.of(
+            Team.CHO, Direction.DOWN,
+            Team.HAN, Direction.UP
+    );
     private final Direction backwardDirection;
 
     public Soldier(Team team, Position position) {
         super(PieceType.SOLDIER, team, position);
-        this.backwardDirection = backwardDirections.get(team);
+        this.backwardDirection = BACKWARD_DIRECTIONS.get(team);
     }
 
     @Override

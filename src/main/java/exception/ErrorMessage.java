@@ -10,7 +10,13 @@ public enum ErrorMessage {
     CANNON_NEEDS_BRIDGE("포는 반드시 한 기물을 넘어야합니다."),
     CANNON_CANNOT_OVER_PIECES("포는 두 기물 이상 넘을 수 없습니다."),
     CANNON_CANNOT_OVER_CANNON("포는 포를 넘을 수 없습니다."),
-    CANNON_CANNOT_TAKE_CANNON("포는 포를 잡을 수 없습니다.");
+    CANNON_CANNOT_TAKE_CANNON("포는 포를 잡을 수 없습니다."),
+    CANNOT_CALCULATE_DISTANCE("직선 또는 대각선 이동이 아닐 때는 거리를 계산할 수 없습니다."),
+    CANNOT_NORMALIZE("단위 벡터를 계산할 수 없습니다."),
+    INVALID_DIRECTION("유효하지 않은 방향입니다."),
+    NOT_MY_PIECE("본인 기물이 아닙니다."),
+    GAME_NOT_ENDED("게임이 아직 끝나지 않았습니다."),
+    PIECE_NOT_FOUND("이동할 기물을 찾을 수 없습니다.");
 
     private final String message;
 

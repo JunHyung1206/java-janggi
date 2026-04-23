@@ -96,7 +96,7 @@ public class Controller {
 
     private Optional<Move> tryMove(Game game, Position from) {
         try {
-            game.validateMoveAblePiece(from);
+            game.validateMyPiece(from);
             Position to = inputView.readTargetPosition();
             game.move(from, to);
             return Optional.of(new Move(from, to));

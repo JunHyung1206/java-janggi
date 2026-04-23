@@ -1,5 +1,7 @@
 package domain;
 
+import exception.ErrorMessage;
+
 import java.util.Arrays;
 
 public enum Direction {
@@ -27,7 +29,7 @@ public enum Direction {
         return Arrays.stream(values())
                 .filter(direction -> direction.offset.equals(offset.normalize()))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 방향이 없습니다. (offset: " + offset + ")"));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.INVALID_DIRECTION.getMessage()));
     }
 
     public boolean hasSameVerticalDirectionAs(Direction direction) {

@@ -35,7 +35,7 @@ class GameTest {
         Board board = new Board(List.of(new Chariot(Team.HAN, new Position(0, 0))));
         Game game = new Game(board);
         assertThrows(IllegalStateException.class,
-                () -> game.validateMoveAblePiece(new Position(0, 0)));
+                () -> game.validateMyPiece(new Position(0, 0)));
     }
 
     @Test
@@ -46,7 +46,7 @@ class GameTest {
         ));
         Game game = new Game(board);
         game.move(new Position(0, 0), new Position(4, 0));
-        assertDoesNotThrow(() -> game.validateMoveAblePiece(new Position(5, 0)));
+        assertDoesNotThrow(() -> game.validateMyPiece(new Position(5, 0)));
     }
 
     @Test
@@ -58,7 +58,7 @@ class GameTest {
         Game game = new Game(board);
         game.move(new Position(0, 0), new Position(4, 0));
         assertThrows(IllegalStateException.class,
-                () -> game.validateMoveAblePiece(new Position(4, 0)));
+                () -> game.validateMyPiece(new Position(4, 0)));
     }
 
     @Test
@@ -70,7 +70,7 @@ class GameTest {
         Game game = new Game(board);
         game.move(new Position(0, 0), new Position(5, 0));
         assertThrows(IllegalStateException.class,
-                () -> game.validateMoveAblePiece(new Position(5, 0)));
+                () -> game.validateMyPiece(new Position(5, 0)));
     }
 
     @Test

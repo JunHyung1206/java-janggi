@@ -8,6 +8,8 @@ import domain.piece.Piece;
 import domain.piece.PieceType;
 import domain.piece.Team;
 
+import exception.ErrorMessage;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +63,7 @@ public class GameRepository {
             }
 
             long movedId = pieceDao.findIdByPosition(connection, gameId, from.x(), from.y())
-                    .orElseThrow(() -> new IllegalStateException("이동할 기물을 찾을 수 없습니다."));
+                    .orElseThrow(() -> new IllegalStateException(ErrorMessage.PIECE_NOT_FOUND.getMessage()));
 
             pieceDao.updatePosition(connection, movedId, to.x(), to.y());
             gameDao.updateTurn(connection, gameId, game.getTurn().name());
