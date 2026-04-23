@@ -16,7 +16,8 @@ public enum ErrorMessage {
     INVALID_DIRECTION("유효하지 않은 방향입니다."),
     NOT_MY_PIECE("본인 기물이 아닙니다."),
     GAME_NOT_ENDED("게임이 아직 끝나지 않았습니다."),
-    PIECE_NOT_FOUND("이동할 기물을 찾을 수 없습니다.");
+    PIECE_NOT_FOUND("이동할 기물을 찾을 수 없습니다."),
+    GAME_NOT_FOUND("존재하지 않는 게임 방입니다.");
 
     private final String message;
 

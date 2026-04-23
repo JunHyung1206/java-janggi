@@ -22,6 +22,7 @@ public class Game {
     }
 
     public void move(Position from, Position to) {
+        validateMyPiece(from);
         board.move(from, to);
         nextTurn();
     }

@@ -1,5 +1,7 @@
 package repository;
 
+import exception.ErrorMessage;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +51,7 @@ public class GameDao {
                 }
             }
         }
-        throw new IllegalArgumentException("존재하지 않는 게임 방입니다.");
+        throw new IllegalArgumentException(ErrorMessage.GAME_NOT_FOUND.getMessage());
     }
 
     public List<GameRow> findAll(Connection connection) throws SQLException {

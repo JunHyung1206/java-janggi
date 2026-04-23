@@ -2,7 +2,7 @@ package view;
 
 import domain.Position;
 
-public class PositionParser {
+public final class PositionParser {
 
     private PositionParser() {
     }

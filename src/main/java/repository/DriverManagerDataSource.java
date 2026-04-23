@@ -16,7 +16,6 @@ public class DriverManagerDataSource implements DataSource {
         this.password = password;
     }
 
-
     @Override
     public Connection getConnection() {
         try {
