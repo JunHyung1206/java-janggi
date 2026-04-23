@@ -1,7 +1,7 @@
 package domain.piece;
 
 import domain.board.Board;
-import domain.board.Position;
+import domain.Position;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

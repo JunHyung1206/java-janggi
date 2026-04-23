@@ -1,6 +1,6 @@
 package domain.piece;
 
-import domain.board.Position;
+import domain.Position;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

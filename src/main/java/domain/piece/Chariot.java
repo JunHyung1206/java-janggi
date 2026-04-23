@@ -1,6 +1,6 @@
 package domain.piece;
 
-import domain.board.Position;
+import domain.Position;
 
 public final class Chariot extends StraightMovingPiece {
     public Chariot(Team team, Position position) {

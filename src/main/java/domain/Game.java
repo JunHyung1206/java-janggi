@@ -1,7 +1,7 @@
 package domain;
 
 import domain.board.Board;
-import domain.board.Position;
+import domain.Position;
 import domain.piece.Piece;
 import domain.piece.Team;
 

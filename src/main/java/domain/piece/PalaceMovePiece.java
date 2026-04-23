@@ -1,6 +1,6 @@
 package domain.piece;
 
-import domain.board.Position;
+import domain.Position;
 import exception.ErrorMessage;
 
 import java.util.Optional;

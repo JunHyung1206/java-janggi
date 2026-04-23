@@ -30,7 +30,7 @@ public enum Direction {
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 방향이 없습니다. (offset: " + offset + ")"));
     }
 
-    public boolean containsBackWardDirection(Direction direction) {
-        return (offset.dy() == direction.offset.dy());
+    public boolean hasSameVerticalDirectionAs(Direction direction) {
+        return offset.dy() == direction.offset.dy();
     }
 }

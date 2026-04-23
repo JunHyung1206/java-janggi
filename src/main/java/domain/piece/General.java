@@ -1,6 +1,6 @@
 package domain.piece;
 
-import domain.board.Position;
+import domain.Position;
 
 public final class General extends SingleStepPiece {
     public General(Team team, Position position) {

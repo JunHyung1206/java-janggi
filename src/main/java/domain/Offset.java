@@ -1,6 +1,6 @@
 package domain;
 
-import domain.board.Position;
+import domain.Position;
 
 public record Offset(int dx, int dy) {
     public static Offset of(Position source, Position target) {

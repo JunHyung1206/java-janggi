@@ -4,9 +4,8 @@ import domain.Game;
 import domain.board.Board;
 import domain.board.BoardFactory;
 import domain.board.InitializeSetting;
-import domain.board.Position;
+import domain.Position;
 
-import domain.board.Move;
 import domain.piece.Team;
 import dto.GameDto;
 import dto.PieceDto;

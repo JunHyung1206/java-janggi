@@ -1,5 +1,6 @@
 package domain.board;
 
+import domain.Position;
 import domain.piece.Piece;
 import domain.piece.PieceType;
 import domain.piece.Team;

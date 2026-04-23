@@ -1,5 +1,6 @@
 package domain.board;
 
+import domain.Position;
 import domain.piece.Cannon;
 import domain.piece.Chariot;
 import domain.piece.General;

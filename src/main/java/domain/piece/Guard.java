@@ -1,6 +1,6 @@
 package domain.piece;
 
-import domain.board.Position;
+import domain.Position;
 
 public final class Guard extends SingleStepPiece {
     public Guard(Team team, Position position) {

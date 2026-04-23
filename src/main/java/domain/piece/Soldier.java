@@ -2,7 +2,7 @@ package domain.piece;
 
 import domain.Direction;
 import domain.Offset;
-import domain.board.Position;
+import domain.Position;
 import exception.ErrorMessage;
 
 import java.util.Map;
@@ -22,7 +22,7 @@ public final class Soldier extends SingleStepPiece {
         Position from = getPosition();
         Offset offset = Offset.of(from, to);
         Direction direction = Direction.of(offset);
-        if (direction.containsBackWardDirection(backwardDirection)) {
+        if (direction.hasSameVerticalDirectionAs(backwardDirection)) {
             throw new IllegalStateException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
         }
     }

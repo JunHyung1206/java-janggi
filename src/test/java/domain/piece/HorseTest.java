@@ -2,7 +2,7 @@ package domain.piece;
 
 import domain.Offset;
 import domain.board.Board;
-import domain.board.Position;
+import domain.Position;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

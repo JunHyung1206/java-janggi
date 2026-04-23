@@ -1,7 +1,7 @@
 package view;
 
 import domain.board.InitializeSetting;
-import domain.board.Position;
+import domain.Position;
 
 import java.util.Optional;
 import java.util.Scanner;
