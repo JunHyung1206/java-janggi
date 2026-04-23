@@ -13,7 +13,7 @@ public final class General extends SingleStepPiece {
     }
 
     @Override
-    public Piece move(Position newPosition) {
+    protected Piece createMoved(Position newPosition) {
         return new General(getTeam(), newPosition);
     }
 }

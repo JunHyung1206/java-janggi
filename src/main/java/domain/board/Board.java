@@ -1,6 +1,5 @@
 package domain.board;
 
-import domain.Offset;
 import domain.piece.Piece;
 import domain.piece.PieceType;
 import domain.piece.Team;
@@ -24,18 +23,11 @@ public class Board {
         validateActualMove(from, to);
 
         Piece sourcePiece = getRequiredPiece(from);
-        Optional<Piece> targetPiece = getPiece(to);
-        validateNotSameTeam(sourcePiece, targetPiece);
+        Piece movedPiece = sourcePiece.move(to, pieces);
 
-        List<Offset> pathOffsets = sourcePiece.getPathOffset(to);
-        List<Piece> blockedPieces = getBlockedPieces(from, pathOffsets);
-
-        sourcePiece.validateMove(blockedPieces);
-        sourcePiece.validateTarget(targetPiece);
-
-        targetPiece.ifPresent(pieces::remove);
+        getPiece(to).ifPresent(pieces::remove);
         pieces.remove(sourcePiece);
-        pieces.add(sourcePiece.move(to));
+        pieces.add(movedPiece);
     }
 
     public Optional<Piece> getPiece(Position position) {
@@ -53,20 +45,6 @@ public class Board {
         if (from.equals(to)) {
             throw new IllegalArgumentException(ErrorMessage.NOT_MOVE.getMessage());
         }
-    }
-
-    private void validateNotSameTeam(Piece fromPiece, Optional<Piece> toPiece) {
-        if (toPiece.isPresent() && fromPiece.isSameTeam(toPiece.get())) {
-            throw new IllegalStateException(ErrorMessage.SAME_TEAM_OCCUPIED.getMessage());
-        }
-    }
-
-    private List<Piece> getBlockedPieces(Position from, List<Offset> offsets) {
-        return offsets.stream()
-                .map(offset -> offset.applyTo(from))
-                .map(this::getPiece)
-                .flatMap(Optional::stream)
-                .toList();
     }
 
     public double calculateScore(Team team) {

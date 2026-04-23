@@ -34,7 +34,7 @@ public final class Elephant extends JumpMovingPiece {
     }
 
     @Override
-    public Piece move(Position newPosition) {
+    protected Piece createMoved(Position newPosition) {
         return new Elephant(getTeam(), newPosition);
     }
 }

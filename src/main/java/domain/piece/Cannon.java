@@ -12,7 +12,7 @@ public final class Cannon extends StraightMovingPiece {
     }
 
     @Override
-    public void validateMove(List<Piece> blockedPieces) {
+    protected void validateMove(List<Piece> blockedPieces) {
         if (blockedPieces.isEmpty()) {
             throw new IllegalStateException(ErrorMessage.CANNON_NEEDS_BRIDGE.getMessage());
         }
@@ -26,7 +26,8 @@ public final class Cannon extends StraightMovingPiece {
     }
 
     @Override
-    public void validateTarget(Optional<Piece> target) {
+    protected void validateTarget(Optional<Piece> target) {
+        super.validateTarget(target);
         target.ifPresent(piece -> {
             if (piece.isSameType(PieceType.CANNON)) {
                 throw new IllegalStateException(ErrorMessage.CANNON_CANNOT_TAKE_CANNON.getMessage());
@@ -35,7 +36,7 @@ public final class Cannon extends StraightMovingPiece {
     }
 
     @Override
-    public Piece move(Position newPosition) {
+    protected Piece createMoved(Position newPosition) {
         return new Cannon(getTeam(), newPosition);
     }
 }

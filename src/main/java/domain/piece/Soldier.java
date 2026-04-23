@@ -28,7 +28,7 @@ public final class Soldier extends SingleStepPiece {
     }
 
     @Override
-    public Piece move(Position newPosition) {
+    protected Piece createMoved(Position newPosition) {
         return new Soldier(getTeam(), newPosition);
     }
 }

@@ -8,7 +8,7 @@ public final class Chariot extends StraightMovingPiece {
     }
 
     @Override
-    public Piece move(Position newPosition) {
+    protected Piece createMoved(Position newPosition) {
         return new Chariot(getTeam(), newPosition);
     }
 }

@@ -32,7 +32,7 @@ public final class Horse extends JumpMovingPiece {
     }
 
     @Override
-    public Piece move(Position newPosition) {
+    protected Piece createMoved(Position newPosition) {
         return new Horse(getTeam(), newPosition);
     }
 }

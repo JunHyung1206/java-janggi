@@ -5,6 +5,7 @@ import repository.GameDao;
 import repository.GameRepository;
 import repository.H2DBConnection;
 import repository.PieceDao;
+import repository.TransactionManager;
 import view.InputView;
 import view.OutputView;
 
@@ -19,7 +20,8 @@ public class Application {
         OutputView outputView = new OutputView();
 
         DBConnection dbConnection = new H2DBConnection(dbUrl);
-        GameRepository gameRepository = new GameRepository(dbConnection, new GameDao(), new PieceDao());
+        TransactionManager transactionManager = new TransactionManager(dbConnection);
+        GameRepository gameRepository = new GameRepository(transactionManager, new GameDao(), new PieceDao());
 
         Controller controller = new Controller(inputView, outputView, gameRepository);
         controller.run();

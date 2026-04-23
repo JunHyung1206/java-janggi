@@ -18,18 +18,38 @@ public abstract class Piece {
         this.position = position;
     }
 
-    public final List<Offset> getPathOffset(Position to) {
+    public final Piece move(Position to, List<Piece> allPieces) {
         validateMoveRule(to);
-        return generatePaths(to);
+        List<Piece> blockedPieces = findBlockedPiecesOnPath(to, allPieces);
+        validateMove(blockedPieces);
+        validateTarget(findPiece(to, allPieces));
+        return createMoved(to);
     }
 
-    public void validateMove(List<Piece> blockedPieces) {
+    private List<Piece> findBlockedPiecesOnPath(Position to, List<Piece> allPieces) {
+        return generatePaths(to).stream()
+                .map(offset -> offset.applyTo(getPosition()))
+                .map(pos -> findPiece(pos, allPieces))
+                .flatMap(Optional::stream)
+                .toList();
+    }
+
+    private Optional<Piece> findPiece(Position pos, List<Piece> allPieces) {
+        return allPieces.stream()
+                .filter(p -> p.getPosition().equals(pos))
+                .findFirst();
+    }
+
+    protected void validateMove(List<Piece> blockedPieces) {
         if (!blockedPieces.isEmpty()) {
             throw new IllegalStateException(ErrorMessage.PATH_BLOCKED.getMessage());
         }
     }
 
-    public void validateTarget(Optional<Piece> target) {
+    protected void validateTarget(Optional<Piece> target) {
+        if (target.isPresent() && isSameTeam(target.get())) {
+            throw new IllegalStateException(ErrorMessage.SAME_TEAM_OCCUPIED.getMessage());
+        }
     }
 
     protected abstract void validateMoveRule(Position to);
@@ -38,7 +58,7 @@ public abstract class Piece {
 
     protected abstract boolean isValidMove(Offset offset);
 
-    public abstract Piece move(Position newPosition);
+    protected abstract Piece createMoved(Position newPosition);
 
     public Position getPosition() {
         return position;
