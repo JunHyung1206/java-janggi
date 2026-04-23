@@ -13,9 +13,6 @@ public class Board {
     private final List<Piece> pieces;
 
     public Board(List<Piece> pieces) {
-        if (pieces == null) {
-            throw new IllegalArgumentException("pieces는 null값일 수 없습니다.");
-        }
         this.pieces = new ArrayList<>(pieces);
     }
 

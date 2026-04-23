@@ -16,7 +16,7 @@ public final class Horse extends JumpMovingPiece {
     protected void validateMoveRule(Position to) {
         Offset offset = Offset.of(getPosition(), to);
         if (!isValidMove(offset)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
+            throw new IllegalStateException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
         }
     }
 

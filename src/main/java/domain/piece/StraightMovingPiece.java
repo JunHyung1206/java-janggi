@@ -19,7 +19,7 @@ public abstract class StraightMovingPiece extends PalaceMovePiece {
         Position from = getPosition();
         Offset offset = Offset.of(from, to);
         if (!isValidMove(offset)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
+            throw new IllegalStateException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
         }
         if (offset.isDiagonalMoving()) {
             requireBothInSamePalace(from, to);
