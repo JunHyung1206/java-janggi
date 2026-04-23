@@ -1,9 +1,9 @@
 import controller.Controller;
 
-import repository.DBConnection;
+import repository.DataSource;
+import repository.DriverManagerDataSource;
 import repository.GameDao;
 import repository.GameRepository;
-import repository.H2DBConnection;
 import repository.PieceDao;
 import repository.TransactionManager;
 import view.InputView;
@@ -11,16 +11,18 @@ import view.OutputView;
 
 import java.sql.SQLException;
 
+import static repository.DBConfig.URL;
+import static repository.DBConfig.USER;
+import static repository.DBConfig.PASSWORD;
+
 public class Application {
     public static void main(String[] args) throws SQLException {
-
-        String dbUrl = "jdbc:h2:./janggi;AUTO_SERVER=TRUE;INIT=RUNSCRIPT FROM 'classpath:schema.sql'";
 
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
-        DBConnection dbConnection = new H2DBConnection(dbUrl);
-        TransactionManager transactionManager = new TransactionManager(dbConnection);
+        DataSource dataSource = new DriverManagerDataSource(URL, USER, PASSWORD);
+        TransactionManager transactionManager = new TransactionManager(dataSource);
         GameRepository gameRepository = new GameRepository(transactionManager, new GameDao(), new PieceDao());
 
         Controller controller = new Controller(inputView, outputView, gameRepository);

@@ -16,12 +16,12 @@ class GameDaoTest {
     private static final String TEST_URL = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:schema.sql'";
 
     private GameDao gameDao;
-    private DBConnection dbConnection;
+    private DataSource dbConnection;
 
     @BeforeEach
     void setUp() {
         gameDao = new GameDao();
-        dbConnection = new H2DBConnection(TEST_URL);
+        dbConnection = new DriverManagerDataSource(TEST_URL, "SA", "");
 
         try (Connection connection = dbConnection.getConnection();
              Statement statement = connection.createStatement()) {

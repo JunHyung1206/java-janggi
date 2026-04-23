@@ -4,14 +4,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TransactionManager {
-    private final DBConnection dbConnection;
 
-    public TransactionManager(DBConnection dbConnection) {
-        this.dbConnection = dbConnection;
+    private final DataSource dataSource;
+
+    public TransactionManager(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     public <T> T query(TransactionWork<T> work) {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             return work.execute(connection);
         } catch (RuntimeException e) {
             throw e;
@@ -28,7 +29,7 @@ public class TransactionManager {
     }
 
     public <T> T execute(TransactionWork<T> work) {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 T result = work.execute(connection);

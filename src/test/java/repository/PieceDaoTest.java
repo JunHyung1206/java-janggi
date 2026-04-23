@@ -17,11 +17,11 @@ class PieceDaoTest {
 
     private GameDao gameDao;
     private PieceDao pieceDao;
-    private DBConnection dbConnection;
+    private DataSource dbConnection;
 
     @BeforeEach
     void setUp() {
-        dbConnection = new H2DBConnection(TEST_URL);
+        dbConnection = new DriverManagerDataSource(TEST_URL, "SA", "");
         gameDao = new GameDao();
         pieceDao = new PieceDao();
 
