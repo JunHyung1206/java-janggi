@@ -3,7 +3,7 @@ package domain.piece;
 import domain.Direction;
 import domain.Offset;
 import exception.ErrorMessage;
-import domain.board.Position;
+import domain.Position;
 
 import java.util.List;
 

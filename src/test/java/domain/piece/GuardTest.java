@@ -1,7 +1,7 @@
 package domain.piece;
 
 import domain.Offset;
-import domain.board.Position;
+import domain.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

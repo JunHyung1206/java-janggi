@@ -3,6 +3,7 @@ package domain.board;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import domain.Position;
 import org.junit.jupiter.api.Test;
 
 class PositionTest {

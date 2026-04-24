@@ -1,4 +1,4 @@
-package domain.board;
+package domain;
 
 import exception.ErrorMessage;
 

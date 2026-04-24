@@ -2,13 +2,12 @@ package domain.piece;
 
 import domain.Offset;
 import domain.board.Board;
-import domain.board.Position;
+import domain.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
