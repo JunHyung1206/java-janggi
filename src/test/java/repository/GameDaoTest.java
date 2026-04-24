@@ -16,14 +16,14 @@ class GameDaoTest {
     private static final String TEST_URL = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:schema.sql'";
 
     private GameDao gameDao;
-    private DBConnection dbConnection;
+    private DataSource dataSource;
 
     @BeforeEach
     void setUp() {
         gameDao = new GameDao();
-        dbConnection = new H2DBConnection(TEST_URL);
+        dataSource = new DriverManagerDataSource(TEST_URL, "SA", "");
 
-        try (Connection connection = dbConnection.getConnection();
+        try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
             statement.execute("DELETE FROM piece");
             statement.execute("DELETE FROM game");
@@ -35,7 +35,7 @@ class GameDaoTest {
 
     @Test
     void 새로운_게임을_저장하면_ID_1번을_반환한다() {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
             assertThat(gameId).isEqualTo(1L);
         } catch (SQLException e) {
@@ -45,7 +45,7 @@ class GameDaoTest {
 
     @Test
     void 게임을_ID로_조회한다() {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
             GameRow gameRow = gameDao.findById(connection, gameId);
             assertThat(gameRow.gameId()).isEqualTo(gameId);
@@ -57,7 +57,7 @@ class GameDaoTest {
 
     @Test
     void 게임의_턴을_성공적으로_업데이트한다() throws Exception {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
             gameDao.updateTurn(connection, gameId, "HAN");
             GameRow gameRow = gameDao.findById(connection, gameId);
@@ -69,7 +69,7 @@ class GameDaoTest {
 
     @Test
     void 존재하지_않는_방_번호를_조회하면_예외가_발생한다() throws Exception {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             assertThatThrownBy(() -> gameDao.findById(connection, 999L))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessage("존재하지 않는 게임 방입니다.");
@@ -80,7 +80,7 @@ class GameDaoTest {
 
     @Test
     void 저장된_게임_목록을_최신순으로_조회한다() throws Exception {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             gameDao.create(connection, "CHO"); // 1번 방
             gameDao.create(connection, "HAN"); // 2번 방
 

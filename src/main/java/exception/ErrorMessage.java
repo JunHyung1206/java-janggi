@@ -10,7 +10,9 @@ public enum ErrorMessage {
     CANNON_NEEDS_BRIDGE("포는 반드시 한 기물을 넘어야합니다."),
     CANNON_CANNOT_OVER_PIECES("포는 두 기물 이상 넘을 수 없습니다."),
     CANNON_CANNOT_OVER_CANNON("포는 포를 넘을 수 없습니다."),
-    CANNON_CANNOT_TAKE_CANNON("포는 포를 잡을 수 없습니다.");
+    CANNON_CANNOT_TAKE_CANNON("포는 포를 잡을 수 없습니다."),
+    PIECE_NOT_FOUND("이동할 기물을 찾을 수 없습니다."),
+    GAME_NOT_FOUND("존재하지 않는 게임 방입니다.");
 
     private final String message;
 

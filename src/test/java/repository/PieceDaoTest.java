@@ -17,15 +17,15 @@ class PieceDaoTest {
 
     private GameDao gameDao;
     private PieceDao pieceDao;
-    private DBConnection dbConnection;
+    private DataSource dataSource;
 
     @BeforeEach
     void setUp() {
-        dbConnection = new H2DBConnection(TEST_URL);
+        dataSource = new DriverManagerDataSource(TEST_URL, "SA", "");
         gameDao = new GameDao();
         pieceDao = new PieceDao();
 
-        try (Connection connection = dbConnection.getConnection();
+        try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
             statement.execute("DELETE FROM piece");
             statement.execute("DELETE FROM game");
@@ -37,7 +37,7 @@ class PieceDaoTest {
 
     @Test
     void 기물들을_저장한다() throws SQLException {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
 
             List<PieceRow> piecesToSave = List.of(
@@ -54,7 +54,7 @@ class PieceDaoTest {
 
     @Test
     void 방의_기물들을_정확히_불러온다() throws SQLException {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
 
             List<PieceRow> piecesToSave = List.of(
@@ -77,7 +77,7 @@ class PieceDaoTest {
 
     @Test
     void 위치로_기물_ID를_조회한다() throws SQLException {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
             pieceDao.saveAll(connection, gameId, List.of(new PieceRow(0, 0, "CHARIOT", "CHO")));
 
@@ -89,7 +89,7 @@ class PieceDaoTest {
 
     @Test
     void 없는_위치를_조회하면_빈값을_반환한다() throws SQLException {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
 
             Optional<Long> pieceId = pieceDao.findIdByPosition(connection, gameId, 9, 9);
@@ -100,7 +100,7 @@ class PieceDaoTest {
 
     @Test
     void 기물의_위치를_업데이트한다() throws SQLException {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
             pieceDao.saveAll(connection, gameId, List.of(new PieceRow(0, 0, "CHARIOT", "CHO")));
 
@@ -117,7 +117,7 @@ class PieceDaoTest {
 
     @Test
     void 기물을_ID로_삭제한다() throws SQLException {
-        try (Connection connection = dbConnection.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             long gameId = gameDao.create(connection, "CHO");
             pieceDao.saveAll(connection, gameId, List.of(new PieceRow(0, 0, "CHARIOT", "CHO")));
 
