@@ -2,7 +2,6 @@ package domain.piece;
 
 import domain.Offset;
 import domain.board.Board;
-import domain.board.Palace;
 import domain.board.Position;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,13 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ChariotTest {
 
     private Piece chariot;
-    private Optional<Palace> choPalace;
 
 
     @BeforeEach
     void setUp() {
         chariot = new Chariot(Team.CHO);
-        choPalace = Optional.of(new Palace(new Position(4, 1)));
     }
 
     @Test
@@ -34,7 +30,7 @@ class ChariotTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = chariot.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = chariot.getPathOffset(from, to);
 
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(-1, 0), new Offset(-2, 0)));
@@ -47,7 +43,7 @@ class ChariotTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = chariot.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = chariot.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(1, 0), new Offset(2, 0)));
     }
@@ -60,7 +56,7 @@ class ChariotTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = chariot.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = chariot.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of());
     }
@@ -72,7 +68,7 @@ class ChariotTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = chariot.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = chariot.getPathOffset(from, to);
 
 
         assertThat(pathPositions).isEqualTo(
@@ -132,7 +128,7 @@ class ChariotTest {
         Position from = new Position(5, 2);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = chariot.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = chariot.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(
@@ -147,7 +143,7 @@ class ChariotTest {
         Position from = new Position(3, 2);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = chariot.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = chariot.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(
@@ -162,7 +158,7 @@ class ChariotTest {
         Position from = new Position(5, 0);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = chariot.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = chariot.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(
@@ -178,7 +174,7 @@ class ChariotTest {
         Position from = new Position(5, 2);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = chariot.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = chariot.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(

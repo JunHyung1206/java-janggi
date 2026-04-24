@@ -1,13 +1,11 @@
 package domain.piece;
 
 import domain.Offset;
-import domain.board.Palace;
 import domain.board.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,12 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class SoldierHanTest {
 
     private Piece soldier;
-    private Optional<Palace> choPalace;
 
     @BeforeEach
     void setUp() {
         soldier = new Soldier(Team.HAN);
-        choPalace = Optional.of(new Palace(new Position(4, 1)));
     }
 
     @Test
@@ -30,7 +26,7 @@ class SoldierHanTest {
         Position from = new Position(4, 1);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = soldier.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = soldier.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of());
     }
@@ -42,7 +38,7 @@ class SoldierHanTest {
         Position from = new Position(4, 1);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = soldier.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = soldier.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of());
     }
@@ -54,7 +50,7 @@ class SoldierHanTest {
         Position from = new Position(4, 1);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = soldier.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = soldier.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of());
     }
@@ -66,7 +62,7 @@ class SoldierHanTest {
         Position from = new Position(4, 1);
         Position to = offset.applyTo(from);
 
-        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to, Optional.empty()));
+        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to));
     }
 
 
@@ -76,7 +72,7 @@ class SoldierHanTest {
         Position from = new Position(3, 2);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = soldier.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = soldier.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of());
     }
@@ -87,7 +83,7 @@ class SoldierHanTest {
         Position from = new Position(4, 1);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = soldier.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = soldier.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of());
     }
@@ -98,7 +94,7 @@ class SoldierHanTest {
         Position from = new Position(4, 1);
         Position to = offset.applyTo(from);
 
-        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to, choPalace));
+        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to));
     }
 
     @Test
@@ -107,7 +103,7 @@ class SoldierHanTest {
         Position from = new Position(4, 1);
         Position to = offset.applyTo(from);
 
-        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to, choPalace));
+        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to));
     }
 
     @Test
@@ -116,7 +112,7 @@ class SoldierHanTest {
         Position from = new Position(1, 4);
         Position to = offset.applyTo(from);
 
-        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to, choPalace));
+        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to));
     }
 
     @Test
@@ -125,7 +121,7 @@ class SoldierHanTest {
         Position from = new Position(1, 4);
         Position to = offset.applyTo(from);
 
-        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to, choPalace));
+        assertThrows(IllegalStateException.class, () -> soldier.getPathOffset(from, to));
     }
 
 }

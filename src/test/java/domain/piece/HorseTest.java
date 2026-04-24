@@ -28,7 +28,7 @@ class HorseTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = horse.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = horse.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(0, 1)));
     }
@@ -40,7 +40,7 @@ class HorseTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = horse.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = horse.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(0, 1)));
     }
@@ -53,7 +53,7 @@ class HorseTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = horse.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = horse.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(-1, 0)));
 
@@ -67,7 +67,7 @@ class HorseTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = horse.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = horse.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(-1, 0)));
     }
@@ -80,7 +80,7 @@ class HorseTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = horse.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = horse.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(0, -1)));
 
@@ -94,7 +94,7 @@ class HorseTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = horse.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = horse.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(0, -1)));
     }
@@ -107,7 +107,7 @@ class HorseTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = horse.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = horse.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(1, 0)));
     }
@@ -120,7 +120,7 @@ class HorseTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = horse.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = horse.getPathOffset(from, to);
         assertThat(pathPositions).isEqualTo(List.of(new Offset(1, 0)));
     }
 

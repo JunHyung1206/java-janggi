@@ -1,9 +1,8 @@
 package domain.piece;
 
 import domain.Offset;
-import domain.board.Palace;
-import exception.ErrorMessage;
 import domain.board.Position;
+import exception.ErrorMessage;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,9 +16,9 @@ public abstract class Piece {
         this.team = team;
     }
 
-    public final List<Offset> getPathOffset(Position from, Position to, Optional<Palace> palace) {
-        validateMoveRule(from, to, palace);
-        return generatePaths(from, to, palace);
+    public final List<Offset> getPathOffset(Position from, Position to) {
+        validateMoveRule(from, to);
+        return generatePaths(from, to);
     }
 
     public void validateMove(List<Piece> blockedPieces) {
@@ -31,9 +30,9 @@ public abstract class Piece {
     public void validateTarget(Optional<Piece> target) {
     }
 
-    protected abstract void validateMoveRule(Position from, Position to, Optional<Palace> palace);
+    protected abstract void validateMoveRule(Position from, Position to);
 
-    protected abstract List<Offset> generatePaths(Position from, Position to, Optional<Palace> palace);
+    protected abstract List<Offset> generatePaths(Position from, Position to);
 
     protected abstract boolean isValidMove(Offset offset);
 

@@ -2,14 +2,12 @@ package domain.piece;
 
 import domain.Offset;
 import domain.board.Board;
-import domain.board.Palace;
 import domain.board.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -18,12 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class CannonTest {
 
     private Piece cannon;
-    private Optional<Palace> choPalace;
 
     @BeforeEach
     void setUp() {
         cannon = new Cannon(Team.CHO);
-        choPalace = Optional.of(new Palace(new Position(4, 1)));
     }
 
     @Test
@@ -33,7 +29,7 @@ class CannonTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = cannon.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = cannon.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(-1, 0), new Offset(-2, 0)));
     }
@@ -45,7 +41,7 @@ class CannonTest {
         Position from = new Position(4, 5);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = cannon.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = cannon.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(List.of(new Offset(1, 0), new Offset(2, 0)));
     }
@@ -58,7 +54,7 @@ class CannonTest {
         Position from = new Position(4, 1);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = cannon.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = cannon.getPathOffset(from, to);
         assertThat(pathPositions).isEqualTo(
                 List.of(new Offset(0, 1),
                         new Offset(0, 2),
@@ -75,7 +71,7 @@ class CannonTest {
         Position from = new Position(4, 8);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = cannon.getPathOffset(from, to, Optional.empty());
+        List<Offset> pathPositions = cannon.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(
@@ -141,7 +137,7 @@ class CannonTest {
         Position from = new Position(5, 2);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = cannon.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = cannon.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(
@@ -156,7 +152,7 @@ class CannonTest {
         Position from = new Position(3, 2);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = cannon.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = cannon.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(
@@ -171,7 +167,7 @@ class CannonTest {
         Position from = new Position(5, 0);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = cannon.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = cannon.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(
@@ -187,7 +183,7 @@ class CannonTest {
         Position from = new Position(5, 2);
         Position to = offset.applyTo(from);
 
-        List<Offset> pathPositions = cannon.getPathOffset(from, to, choPalace);
+        List<Offset> pathPositions = cannon.getPathOffset(from, to);
 
         assertThat(pathPositions).isEqualTo(
                 List.of(

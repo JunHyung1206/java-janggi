@@ -2,12 +2,10 @@ package domain.piece;
 
 import domain.Direction;
 import domain.Offset;
-import domain.board.Palace;
 import exception.ErrorMessage;
 import domain.board.Position;
 
 import java.util.List;
-import java.util.Optional;
 
 public final class Elephant extends JumpMovingPiece {
 
@@ -16,10 +14,10 @@ public final class Elephant extends JumpMovingPiece {
     }
 
     @Override
-    protected void validateMoveRule(Position from, Position to, Optional<Palace> palace) {
+    protected void validateMoveRule(Position from, Position to) {
         Offset offset = Offset.of(from, to);
         if (!isValidMove(offset)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
+            throw new IllegalStateException(ErrorMessage.INVALID_MOVE_RULE.getMessage());
         }
     }
 
